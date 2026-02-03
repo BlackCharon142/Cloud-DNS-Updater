@@ -14,11 +14,6 @@ class DNSProvider(ABC):
         pass
     
     @abstractmethod
-    async def get_current_ip(self, ip_version: int) -> str:
-        """Get the current public IP address"""
-        pass
-    
-    @abstractmethod
     async def update_dns_record(
         self, 
         domain: str, 
@@ -28,8 +23,3 @@ class DNSProvider(ABC):
     ) -> None:
         """Update the DNS record with the new IP"""
         pass
-    
-    def get_ip_version(self) -> int:
-        """Get the IP version based on provider configuration"""
-        # Default implementation, can be overridden by providers
-        return 4

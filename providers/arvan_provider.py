@@ -1,3 +1,4 @@
+import asyncio
 import aiohttp
 import logging
 from .base_provider import DNSProvider
@@ -22,21 +23,6 @@ class ArvanProvider(DNSProvider):
             if response.status == 404:
                 raise ValueError(f"Domain '{domain}' not found in your ArvanCloud account")
             response.raise_for_status()
-    
-    async def get_current_ip(self, ip_version: int) -> str:
-        """Get current public IP using Arvan's preferred method"""
-        # For IPv4
-        if ip_version == 4:
-            url = "https://v4.ident.me"
-        # For IPv6
-        elif ip_version == 6:
-            url = "https://v6.ident.me"
-        else:
-            raise ValueError("Invalid IP version")
-        
-        async with self.session.get(url) as response:
-            response.raise_for_status()
-            return await response.text()
     
     async def update_dns_record(
         self, 
